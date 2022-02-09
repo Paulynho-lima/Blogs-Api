@@ -85,10 +85,21 @@ if (!users) return res.status(CODE_ERR).json({ message: 'Invalid fields' });
   next();
    };
 
+const nameValidCategory = (req, res, next) => {
+  const { name } = req.body;
+ 
+  if (!name) {
+ return res.status(CODE_ERR)
+    .json({ message: '"name" is required' }); 
+}
+  next();
+ };
+
 module.exports = {
        dispNameValid,
        emailValid,
        passwordValid,
        loginEmailValid,
        loginPasswordValid,
+       nameValidCategory,
    };

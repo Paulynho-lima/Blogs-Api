@@ -1,6 +1,7 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-const PASS_SECRET = 'paulynhopaulynho';
+const PASS_SECRET = process.env.JWT_SECRET;
 const JWT_CONFIG = {
   expiresIn: 3600,
   algorithm: 'HS256',
@@ -14,7 +15,7 @@ const validateToken = (token) => {
     console.log(user);
     return user;
   } catch (error) {
-    console.log(error.message);
+    console.log(` eu aqui ${error.message}`);
     return null;
   }
 }; 
