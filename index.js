@@ -9,7 +9,8 @@ const loginControllers = require('./controllers/loginControllers');
 const { emailValid, dispNameValid, passwordValid, loginEmailValid,
    loginPasswordValid, nameValidCategory, blogPostValid } = require('./middlewares/validations');
 const { getCategoryController } = require('./controllers/getCategoriesContr');
-const { getBlogPostControllers } = require('./controllers/getBlogPostControllers');
+const { getBlogPostControllers,
+ getBlogPostByIdControl } = require('./controllers/getBlogPostControllers');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,6 +27,7 @@ app.get('/categories', errorAuth, getCategoryController);
 app.use('/categories/', errorAuth, nameValidCategory, categoriesControllers);
 
 app.get('/post', errorAuth, getBlogPostControllers);
+app.get('/post/:id', errorAuth, getBlogPostByIdControl);
 app.use('/post/', errorAuth, blogPostValid, blogPostControllers);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
