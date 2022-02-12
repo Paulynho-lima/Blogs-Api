@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { User } = require('../models');
+const { User, Category } = require('../models');
 
 const CODE_ERR = 400;
 
@@ -95,6 +95,22 @@ const nameValidCategory = (req, res, next) => {
   next();
  };
 
+ const blogPostValid = async (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
+   
+  if (!title) return res.status(CODE_ERR).json({ message: '"title" is required' });
+  
+  if (!content) return res.status(CODE_ERR).json({ message: '"content" is required' });
+
+  if (!categoryIds) return res.status(CODE_ERR).json({ message: '"categoryIds" is required' });
+  const idCat = await Category.findOne({ where: { id: categoryIds } });
+  
+  if (!idCat) {
+    return res.status(CODE_ERR).json({ message: '"categoryIds" not found' });
+  }
+  next();
+ };
+
 module.exports = {
        dispNameValid,
        emailValid,
@@ -102,4 +118,5 @@ module.exports = {
        loginEmailValid,
        loginPasswordValid,
        nameValidCategory,
+       blogPostValid,
    };

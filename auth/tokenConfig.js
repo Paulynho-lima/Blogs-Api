@@ -12,7 +12,7 @@ const validateToken = (token) => {
   try {
     const decoded = jwt.verify(token, PASS_SECRET);
     const { user } = decoded;
-    console.log(user);
+   
     return user;
   } catch (error) {
     console.log(` eu aqui ${error.message}`);

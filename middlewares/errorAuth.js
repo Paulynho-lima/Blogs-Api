@@ -8,6 +8,7 @@ module.exports = async (req, res, next) => {
         const user = validateToken(authorization);
         if (!user) return res.status(401).json({ message: 'Expired or invalid token' });
         req.user = user;
+
         next();
     } catch (error) {
         console.log(`POST AUTHFALHA: ${error.message}`);

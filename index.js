@@ -1,12 +1,13 @@
 const express = require('express');
 const userControllers = require('./controllers/userControllers');
 const categoriesControllers = require('./controllers/categoriesControllers');
+const blogPostControllers = require('./controllers/blogPostControllers');
  const { getUserController, getUserByIdControler } = require('./controllers/getUserControllers');
 const errorAuth = require('./middlewares/errorAuth');
 
 const loginControllers = require('./controllers/loginControllers');
 const { emailValid, dispNameValid, passwordValid, loginEmailValid,
-   loginPasswordValid, nameValidCategory } = require('./middlewares/validations');
+   loginPasswordValid, nameValidCategory, blogPostValid } = require('./middlewares/validations');
 const { getCategoryController } = require('./controllers/getCategoriesContr');
 
 const app = express();
@@ -22,6 +23,8 @@ app.use('/login/', loginEmailValid, loginPasswordValid, loginControllers);
 
 app.get('/categories', errorAuth, getCategoryController);
 app.use('/categories/', errorAuth, nameValidCategory, categoriesControllers);
+
+app.use('/post/', errorAuth, blogPostValid, blogPostControllers);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
 
