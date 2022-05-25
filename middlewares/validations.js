@@ -111,6 +111,19 @@ const nameValidCategory = (req, res, next) => {
   next();
  };
 
+ const updateBlogPostValid = async (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
+   
+  if (!title) return res.status(CODE_ERR).json({ message: '"title" is required' });
+  
+  if (!content) return res.status(CODE_ERR).json({ message: '"content" is required' });
+  
+  if (categoryIds) {
+    return res.status(CODE_ERR).json({ message: 'Categories cannot be edited' });
+  } 
+  next();
+ };
+
 module.exports = {
        dispNameValid,
        emailValid,
@@ -119,4 +132,6 @@ module.exports = {
        loginPasswordValid,
        nameValidCategory,
        blogPostValid,
+       updateBlogPostValid,
+       
    };
